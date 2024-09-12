@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -5,42 +6,43 @@ import java.awt.event.ActionListener;
 
 // Classe principal da aplicação que herda de JFrame e implementa ActionListener para lidar com eventos de clique
 public class Cruzadinha extends JFrame implements ActionListener {
+
     private static final int GRID_SIZE = 16;  // Tamanho da grade, ajustado para suportar palavras maiores
     private JTextField[][] grid = new JTextField[GRID_SIZE][GRID_SIZE];  // Matriz de campos de texto que compõem a cruzadinha
 
     // Palavras a serem adivinhadas e suas respectivas dicas
     private String[] words = {"RM", "JIN", "SUGA", "JHOPE", "JIMIN", "V", "JK", "ARMY", "DYNAMITE", "BUTTER"};
     private String[] hints = {
-            "0. Outra música de sucesso do BTS, cheia de energia e charme (Horizontal)",
-            "1. Líder do BTS, conhecido como Rap Monster (Horizontal)",
-            "2. O membro mais velho do BTS, Worldwide Handsome (Vertical)",
-            "3. Conhecido como o 'Gênio da Música' (Vertical)",
-            "4. O 'raio de sol' do grupo (Vertical)",
-            "5. Conhecido por seu sorriso encantador (Horizontal)",
-            "6. O nome artístico de Kim Taehyung (Vertical)",
-            "7. O maknae (mais jovem) do grupo (Horizontal)",
-            "8. O fandom leal do BTS (Horizontal)",
-            "9. Um dos maiores hits globais do BTS, lançado em 2020 (Horizontal)"
+        "0. Outra música de sucesso do BTS, cheia de energia e charme (Horizontal)",
+        "1. Líder do BTS, conhecido como Rap Monster (Horizontal)",
+        "2. O membro mais velho do BTS, Worldwide Handsome (Vertical)",
+        "3. Conhecido como o 'Gênio da Música' (Vertical)",
+        "4. O 'raio de sol' do grupo (Vertical)",
+        "5. Conhecido por seu sorriso encantador (Horizontal)",
+        "6. O nome artístico de Kim Taehyung (Vertical)",
+        "7. O maknae (mais jovem) do grupo (Horizontal)",
+        "8. O fandom leal do BTS (Horizontal)",
+        "9. Um dos maiores hits globais do BTS, lançado em 2020 (Horizontal)"
     };
 
     // Solução da cruzadinha, com números representando as dicas no grid
     private String[][] solution = {
-            {"1", "R", "M", " ", " ", " ", " ", "9", "D", "Y", "N", "A", "M", "I", "T", "E", " ", " "},  
-            {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", "3", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "},  
-            {" ", " ", "S", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
-            {"0", "B", "U", "T", "T", "E", "R", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", "G", " ", " ", " ", " ", "2", " ", " ", " ", " ", "4", " ", " ", " ", " ", " "},
-            {" ", " ", "A", " ", " ", " ", " ", "J", " ", " ", " ", "7", "J", "K ", " ", " ", "6", " "},  
-            {" ", " ", " ", " ", " ", " ", " ", "I", " ", " ", " ", " ", "H", " ", " ", " ", "V", " "},  
-            {" ", " ", "5", "J", "I", "M", "I", "N", " ", " ", " ", " ", "O", " ", " ", " ", " ", " "}, 
-            {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "P", " ", " ", " ", " ", " "},
-            {"8", "A", "R", "M", "Y", " ", " ", " ", " ", " ", " ", " ", "E", " ", " ", " ", " ", " "},  
-            {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
-            {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "},  
-            {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "},  
-            {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "},  
-            {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "}   
+        {"1", "R", "M", " ", " ", " ", " ", "9", "D", "Y", "N", "A", "M", "I", "T", "E", " ", " "},
+        {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
+        {" ", " ", "3", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
+        {" ", " ", "S", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
+        {"0", "B", "U", "T", "T", "E", "R", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
+        {" ", " ", "G", " ", " ", " ", " ", "2", " ", " ", " ", " ", "4", " ", " ", " ", " ", " "},
+        {" ", " ", "A", " ", " ", " ", " ", "J", " ", " ", " ", "7", "J", "K ", " ", " ", "6", " "},
+        {" ", " ", " ", " ", " ", " ", " ", "I", " ", " ", " ", " ", "H", " ", " ", " ", "V", " "},
+        {" ", " ", "5", "J", "I", "M", "I", "N", " ", " ", " ", " ", "O", " ", " ", " ", " ", " "},
+        {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "P", " ", " ", " ", " ", " "},
+        {"8", "A", "R", "M", "Y", " ", " ", " ", " ", " ", " ", " ", "E", " ", " ", " ", " ", " "},
+        {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
+        {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
+        {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
+        {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
+        {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "}
     };
 
     private JTextArea hintArea;  // Área de texto para exibir as dicas
@@ -128,7 +130,7 @@ public class Cruzadinha extends JFrame implements ActionListener {
     // Método acionado ao pressionar o botão "Verificar"
     public void actionPerformed(ActionEvent e) {
         boolean correto = true;  // Variável que indica se todas as respostas estão corretas
-        boolean erro  = false;  // Variável que indica se há erros
+        boolean erro = false;  // Variável que indica se há erros
         boolean faltando = false;  // Variável que indica se há campos vazios
 
         // Verifica cada célula da grade
@@ -155,9 +157,9 @@ public class Cruzadinha extends JFrame implements ActionListener {
                         }
                     } catch (NumberFormatException ex) {
                         // Caso o texto não seja um número
-                        grid[i][j].setBackground(Color.RED);  // Marca como erro (fundo vermelho)
-                        erro = true;
-                        correto = false;
+                        grid[i][j].setBackground(Color.GREEN);  // Marca como erro (fundo vermelho)
+                        erro = false;
+                        correto = true;
                     }
                 }
             }
