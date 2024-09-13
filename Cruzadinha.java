@@ -33,7 +33,7 @@ public class Cruzadinha extends JFrame implements ActionListener {
         {" ", " ", "S", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
         {"0", "B", "U", "T", "T", "E", "R", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "},
         {" ", " ", "G", " ", " ", " ", " ", "2", " ", " ", " ", " ", "4", " ", " ", " ", " ", " "},
-        {" ", " ", "A", " ", " ", " ", " ", "J", " ", " ", " ", "7", "J", "K ", " ", " ", "6", " "},
+        {" ", " ", "A", " ", " ", " ", " ", "J", " ", " ", " ", "7", "J", "K", " ", " ", "6", " "},
         {" ", " ", " ", " ", " ", " ", " ", "I", " ", " ", " ", " ", "H", " ", " ", " ", "V", " "},
         {" ", " ", "5", "J", "I", "M", "I", "N", " ", " ", " ", " ", "O", " ", " ", " ", " ", " "},
         {" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", "P", " ", " ", " ", " ", " "},
@@ -122,12 +122,13 @@ public class Cruzadinha extends JFrame implements ActionListener {
     // Método para exibir as dicas no painel à direita
     private void mostrarDicas() {
         hintArea.setText("Dicas:\n");  // Reinicializa o texto da área de dicas
-        for (int i = 0; i < hints.length; i++) {
-            hintArea.append(hints[i] + "\n");  // Adiciona cada dica na área de texto
+        for (String hint : hints) {
+            hintArea.append(hint + "\n");  // Adiciona cada dica na área de texto
         }
     }
 
-    // Método acionado ao pressionar o botão "Verificar"
+    // Método que verifica a solução quando o botão "Verificar" é pressionado
+    @Override
     public void actionPerformed(ActionEvent e) {
         boolean correto = true;  // Variável que indica se todas as respostas estão corretas
         boolean erro = false;  // Variável que indica se há erros
@@ -140,33 +141,28 @@ public class Cruzadinha extends JFrame implements ActionListener {
                     // Ignora células com dicas ou vazias
                     continue;
                 }
-                String userInput = grid[i][j].getText().trim();  // Obtém o texto inserido pelo usuário
+                String userInput = grid[i][j].getText().trim().toUpperCase();  // Obtém o texto inserido pelo usuário e converte para maiúscula
                 if (userInput.isEmpty()) {
                     faltando = true;  // Marca que há campos vazios
+                    grid[i][j].setBackground(Color.YELLOW);
+                    grid[i][j].setForeground(Color.BLACK);  // Marcar células faltando com amarelo
                     correto = false;
                 } else {
-                    try {
-                        int userInputNumber = Integer.parseInt(userInput);  // Tenta converter o texto para número
-                        if (userInputNumber != Integer.parseInt(solution[i][j])) {
-                            grid[i][j].setBackground(Color.RED);  // Marca como erro (fundo vermelho)
-                            erro = true;
-                            correto = false;
-                        } else {
-                            grid[i][j].setBackground(new Color(144, 238, 144));  // Cor verde para respostas corretas
-                            grid[i][j].setForeground(Color.BLACK);  // Cor do texto após acerto
-                        }
-                    } catch (NumberFormatException ex) {
-                        // Caso o texto não seja um número
-                        grid[i][j].setBackground(Color.GREEN);  // Marca como erro (fundo vermelho)
-                        erro = false;
-                        correto = true;
+                    // Verifica se a entrada do usuário coincide com a solução
+                    if (userInput.equals(solution[i][j])) {
+                        grid[i][j].setBackground(new Color(144, 238, 144));  // Verde para respostas corretas
+                        grid[i][j].setForeground(Color.BLACK);  // Muda a cor do texto para preto após o acerto
+                    } else {
+                        grid[i][j].setBackground(Color.RED);  // Vermelho para respostas incorretas
+                        erro = true;
+                        correto = false;
                     }
                 }
             }
         }
 
         // Mensagens de acordo com o resultado
-        if (correto) {
+        if (correto && !faltando) {
             JOptionPane.showMessageDialog(this, "Parabéns! Você acertou todas as palavras!");
         } else if (faltando) {
             JOptionPane.showMessageDialog(this, "Algumas palavras estão faltando. Preencha todos os campos.");
@@ -175,8 +171,8 @@ public class Cruzadinha extends JFrame implements ActionListener {
         }
     }
 
-    // Método main para executar o programa
+    // Método principal para executar a aplicação
     public static void main(String[] args) {
-        new Cruzadinha();  // Cria uma nova instância da classe e exibe a janela
+        new Cruzadinha();  // Cria uma nova instância da aplicação Cruzadinha
     }
 }
